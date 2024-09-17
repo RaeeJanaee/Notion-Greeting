@@ -19,9 +19,11 @@
             display: inline-block;
         }
 
-        #date {
-            font-size: large;
-            color: #000000; /* Ensure text is black */
+        #greeting, #date {
+            display: inline-block; /* Ensures both greeting and date are inline */
+            font-size: xx-large; /* Set both to the same size */
+            margin-right: 10px; /* Adds some space between greeting and date */
+            color: #000000; /* Black text */
         }
 
         body {
@@ -36,7 +38,10 @@
     </style>
 </head>
 <body>
-    <div id="lbl"></div>
+    <div id="lbl">
+        <span id="greeting"></span>
+        <span id="date"></span>
+    </div>
 
     <script>
         // Weekday names array
@@ -56,14 +61,15 @@
         // Determine the greeting based on the time of day
         var greet;
         if (hrs < 12)
-            greet = 'Good Morning, ';
+            greet = 'Good Morning ';
         else if (hrs >= 12 && hrs <= 17)
-            greet = 'Good Afternoon, ';
+            greet = 'Good Afternoon ';
         else
-            greet = 'Good Evening, ';
+            greet = 'Good Evening ';
         
         // Set the greeting and date in the HTML element
-        document.getElementById('lbl').innerHTML = greet + 'Raee' + `<div id="date">It's ${date}</div>`;
+        document.getElementById('greeting').innerHTML = greet + 'Raee,';
+        document.getElementById('date').innerHTML = `It's ${date}`;
     </script>
 </body>
 </html>
