@@ -19,10 +19,10 @@
             display: inline-block;
         }
 
-        #greeting, #date {
+        #greeting, #date, #time {
             display: inline-block; /* Ensures both greeting and date are inline */
             font-size: xx-large; /* Set both to the same size */
-            margin-right: 10px; /* Adds some space between greeting and date */
+            margin-right: 10px; /* Adds some space between elements */
             color: #000000; /* Black text */
         }
 
@@ -41,6 +41,7 @@
     <div id="lbl">
         <span id="greeting"></span>
         <span id="date"></span>
+        <span id="time"></span> <!-- Time will be shown here -->
     </div>
 
     <script>
@@ -55,21 +56,44 @@
         // Format the date as MM/DD/YYYY
         var formattedDate = (today.getMonth() + 1) + "/" + today.getDate() + "/" + today.getFullYear();
         
+        // Function to format time in HH:MM:SS format
+        function formatTime(date) {
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            let seconds = date.getSeconds();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // The hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes; // Add leading zero to minutes if needed
+            seconds = seconds < 10 ? '0' + seconds : seconds; // Add leading zero to seconds if needed
+            return hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+        }
+
+        // Function to update the time every second
+        function updateTime() {
+            var now = new Date();
+            document.getElementById('time').innerHTML = formatTime(now);
+        }
+        
         // Final date display
         var date = dayOfWeek + " " + formattedDate;
         
         // Determine the greeting based on the time of day
         var greet;
         if (hrs < 12)
-            greet = 'Good Morning ';
+            greet = 'Good Morning, ';
         else if (hrs >= 12 && hrs <= 17)
-            greet = 'Good Afternoon ';
+            greet = 'Good Afternoon, ';
         else
-            greet = 'Good Evening ';
+            greet = 'Good Evening, ';
         
         // Set the greeting and date in the HTML element
-        document.getElementById('greeting').innerHTML = greet + 'Raee,';
+        document.getElementById('greeting').innerHTML = greet + 'Raee';
         document.getElementById('date').innerHTML = `It's ${date}`;
+        
+        // Start the clock and update every second
+        updateTime(); // Set initial time
+        setInterval(updateTime, 1000); // Update time every second
     </script>
 </body>
 </html>
